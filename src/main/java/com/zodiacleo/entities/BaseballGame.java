@@ -47,10 +47,20 @@ public class BaseballGame implements Game
         this.awayTeam = awayTeam;
     }
     
+    public void startGame()
+    {
+        System.out.println("*************Pre-match analysis!*************");
+    }
+    
     @Override
     public String playGame()
     {
         return Math.random() < 0.5 ? getHomeTeam().getName() : getAwayTeam().getName();
+    }
+    
+    public void endGame()
+    {
+        System.out.println("*************Post match ceremony*************");
     }
     
     @Override

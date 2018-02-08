@@ -22,7 +22,7 @@ public class AppConfig
     @Autowired
     private List<Team> teams;
     
-    @Bean
+    @Bean(initMethod = "startGame", destroyMethod = "endGame")
     @Scope("prototype")
     public Game game()
     {
