@@ -1,6 +1,7 @@
 package com.zodiacleo;
 
 import com.zodiacleo.entities.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -11,8 +12,11 @@ import javax.sql.DataSource;
 @Import(InfrastructureConfig.class)
 public class AppConfig
 {
+    @Autowired
+    private DataSource dataSource;
+    
     @Bean
-    public Game game(DataSource dataSource)
+    public Game game()
     {
         BaseballGame baseballGame = new BaseballGame(redSox(), cubs());
         baseballGame.setDataSource(dataSource);
