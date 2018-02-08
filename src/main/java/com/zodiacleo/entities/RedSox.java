@@ -1,5 +1,8 @@
 package com.zodiacleo.entities;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RedSox implements Team
 {
     @Override
