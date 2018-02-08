@@ -1,5 +1,7 @@
 package com.zodiacleo.entities;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 
 public class BaseballGame implements Game
@@ -16,6 +18,24 @@ public class BaseballGame implements Game
     {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+    }
+    
+    @PostConstruct
+    public void startGame()
+    {
+        System.out.println("*************Before the start of the game*************");
+    }
+    
+    @PreDestroy
+    public void endGame()
+    {
+        System.out.println("*************After the end of the game*************");
+    }
+    
+    @Override
+    public String playGame()
+    {
+        return Math.random() < 0.5 ? getHomeTeam().getName() : getAwayTeam().getName();
     }
     
     public void setDataSource(DataSource dataSource)
@@ -45,12 +65,6 @@ public class BaseballGame implements Game
     public void setAwayTeam(Team awayTeam)
     {
         this.awayTeam = awayTeam;
-    }
-    
-    @Override
-    public String playGame()
-    {
-        return Math.random() < 0.5 ? getHomeTeam().getName() : getAwayTeam().getName();
     }
     
     @Override
