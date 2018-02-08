@@ -1,37 +1,36 @@
 package com.zodiacleo;
 
-import com.zodiacleo.entities.*;
+import com.zodiacleo.entities.BaseballGame;
+import com.zodiacleo.entities.Game;
+import com.zodiacleo.entities.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import javax.sql.DataSource;
 
 @Configuration
-@Import(InfrastructureConfig.class)
+@ComponentScan(basePackages = "com.zodiacleo")
 public class AppConfig
 {
     @Autowired
     private DataSource dataSource;
     
+    @Autowired
+    @Qualifier("redSox")
+    private Team home;
+    
+    @Autowired
+    @Qualifier("cubs")
+    private Team away;
+    
     @Bean
     public Game game()
     {
-        BaseballGame baseballGame = new BaseballGame(redSox(), cubs());
+        BaseballGame baseballGame = new BaseballGame(home, away);
         baseballGame.setDataSource(dataSource);
         return baseballGame;
-    }
-    
-    @Bean
-    public Team redSox()
-    {
-        return new RedSox();
-    }
-    
-    @Bean
-    public Team cubs()
-    {
-        return new Cubs();
     }
 }
